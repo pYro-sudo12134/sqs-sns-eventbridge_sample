@@ -56,7 +56,7 @@ class EventBridgeServiceTest {
         CompletableFuture<Void> result = eventBridgeService.createEventBus(eventBusName);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(eventBridgeAsyncClient).createEventBus(any(CreateEventBusRequest.class));
     }
 
@@ -70,7 +70,7 @@ class EventBridgeServiceTest {
         CompletableFuture<Void> result = eventBridgeService.createEventBus(eventBusName);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(eventBridgeAsyncClient).createEventBus(any(CreateEventBusRequest.class));
     }
 
@@ -94,7 +94,7 @@ class EventBridgeServiceTest {
                 eventBusName, ruleName, snsTargetArn, source, detailType);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(eventBridgeAsyncClient).putRule(any(PutRuleRequest.class));
         verify(eventBridgeAsyncClient).putTargets(any(PutTargetsRequest.class));
     }
@@ -117,7 +117,7 @@ class EventBridgeServiceTest {
                 eventBusName, ruleName, sqsTargetArn);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(eventBridgeAsyncClient).putRule(any(PutRuleRequest.class));
         verify(eventBridgeAsyncClient).putTargets(any(PutTargetsRequest.class));
     }
@@ -140,7 +140,7 @@ class EventBridgeServiceTest {
                 eventBusName, source, detailType, detail);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(eventBridgeAsyncClient).putEvents(any(PutEventsRequest.class));
     }
 
@@ -166,7 +166,7 @@ class EventBridgeServiceTest {
                 eventBusName, source, detailType, detail);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(eventBridgeAsyncClient).putEvents(any(PutEventsRequest.class));
     }
 
@@ -186,7 +186,7 @@ class EventBridgeServiceTest {
         CompletableFuture<Void> result = eventBridgeService.listRules(eventBusName);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(eventBridgeAsyncClient).listRules(any(ListRulesRequest.class));
     }
 }

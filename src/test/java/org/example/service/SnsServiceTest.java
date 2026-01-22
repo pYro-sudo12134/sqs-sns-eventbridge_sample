@@ -123,7 +123,7 @@ class SnsServiceTest {
         CompletableFuture<Void> result = snsService.listTopics();
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(snsAsyncClient).listTopics(any(ListTopicsRequest.class));
     }
 
@@ -143,7 +143,7 @@ class SnsServiceTest {
         CompletableFuture<Void> result = snsService.listSubscriptions(topicArn);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(snsAsyncClient).listSubscriptionsByTopic(any(ListSubscriptionsByTopicRequest.class));
     }
 }

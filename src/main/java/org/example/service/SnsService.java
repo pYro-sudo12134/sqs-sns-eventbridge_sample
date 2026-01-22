@@ -76,9 +76,7 @@ public class SnsService {
         return snsAsyncClient.listTopics(request)
                 .thenAccept(response -> {
                     logger.info("Available SNS topics:");
-                    response.topics().forEach(topic -> {
-                        logger.info("  - {}", topic.topicArn());
-                    });
+                    response.topics().forEach(topic -> logger.info("  - {}", topic.topicArn()));
                 });
     }
 
@@ -90,9 +88,8 @@ public class SnsService {
         return snsAsyncClient.listSubscriptionsByTopic(request)
                 .thenAccept(response -> {
                     logger.info("Subscriptions for topic {}:", topicArn);
-                    response.subscriptions().forEach(subscription -> {
-                        logger.info("  - {}: {}", subscription.protocol(), subscription.endpoint());
-                    });
+                    response.subscriptions().forEach(subscription ->
+                            logger.info("  - {}: {}", subscription.protocol(), subscription.endpoint()));
                 });
     }
 }

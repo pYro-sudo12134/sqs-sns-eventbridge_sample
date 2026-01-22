@@ -34,9 +34,7 @@ public class EventBridgeService {
                 .build();
 
         return eventBridgeAsyncClient.createEventBus(request)
-                .thenAccept(response -> {
-                    logger.info("EventBus created: {}", eventBusName);
-                })
+                .thenAccept(response -> logger.info("EventBus created: {}", eventBusName))
                 .exceptionally(throwable -> {
                     logger.warn("EventBus might already exist: {}", throwable.getMessage());
                     return null;
@@ -74,9 +72,8 @@ public class EventBridgeService {
                     .build();
 
             return eventBridgeAsyncClient.putTargets(targetsRequest)
-                    .thenAccept(targetsResponse -> {
-                        logger.info("SNS target added to rule: {}", ruleName);
-                    });
+                    .thenAccept(targetsResponse ->
+                            logger.info("SNS target added to rule: {}", ruleName));
         });
     }
 
@@ -112,9 +109,7 @@ public class EventBridgeService {
                     .build();
 
             return eventBridgeAsyncClient.putTargets(targetsRequest)
-                    .thenAccept(targetsResponse -> {
-                        logger.info("SQS target added to rule: {}", ruleName);
-                    });
+                    .thenAccept(targetsResponse -> logger.info("SQS target added to rule: {}", ruleName));
         });
     }
 
@@ -137,11 +132,15 @@ public class EventBridgeService {
                         logger.error("Failed to send event to EventBridge");
                         response.entries().forEach(entryResult -> {
                             if (entryResult.errorCode() != null) {
-                                logger.error("Error: {} - {}", entryResult.errorCode(), entryResult.errorMessage());
+                                logger.error("Error: {} - {}",
+                                        entryResult.errorCode(),
+                                        entryResult.errorMessage()
+                                );
                             }
                         });
                     } else {
-                        logger.info("Event sent to EventBridge: {} - {}", detailType, detail);
+                        logger.info("Event sent to EventBridge: {} - {}",
+                                detailType, detail);
                     }
                 });
     }
@@ -154,9 +153,9 @@ public class EventBridgeService {
         return eventBridgeAsyncClient.listRules(request)
                 .thenAccept(response -> {
                     logger.info("Rules for event bus '{}':", eventBusName);
-                    response.rules().forEach(rule -> {
-                        logger.info("  - {} (State: {})", rule.name(), rule.state());
-                    });
+                    response.rules().forEach(rule ->
+                            logger.info("  - {} (State: {})", rule.name(), rule.state())
+                    );
                 });
     }
 }

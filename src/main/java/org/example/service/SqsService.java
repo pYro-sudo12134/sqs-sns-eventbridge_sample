@@ -94,9 +94,7 @@ public class SqsService {
                 .build();
 
         return sqsAsyncClient.deleteMessage(request)
-                .thenAccept(response -> {
-                    logger.info("Message deleted from queue");
-                });
+                .thenAccept(response -> logger.info("Message deleted from queue"));
     }
 
     public CompletableFuture<Void> processMessages(String queueUrl) {
@@ -129,9 +127,8 @@ public class SqsService {
                 .build();
 
         return sqsAsyncClient.purgeQueue(request)
-                .thenAccept(response -> {
-                    logger.info("Queue purged: {}", queueUrl);
-                })
+                .thenAccept(response ->
+                        logger.info("Queue purged: {}", queueUrl))
                 .exceptionally(throwable -> {
                     logger.warn("Could not purge queue: {}", throwable.getMessage());
                     return null;
@@ -145,9 +142,8 @@ public class SqsService {
                     if (response.queueUrls().isEmpty()) {
                         logger.info("  No queues found");
                     } else {
-                        response.queueUrls().forEach(url -> {
-                            logger.info("  - {}", url);
-                        });
+                        response.queueUrls().forEach(url ->
+                                logger.info("  - {}", url));
                     }
                 });
     }

@@ -168,7 +168,7 @@ class SqsServiceTest {
         CompletableFuture<Void> result = sqsService.deleteMessage(queueUrl, receiptHandle);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(sqsAsyncClient).deleteMessage(any(DeleteMessageRequest.class));
     }
 
@@ -195,7 +195,7 @@ class SqsServiceTest {
         CompletableFuture<Void> result = sqsService.processMessages(queueUrl);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(sqsAsyncClient).receiveMessage(any(ReceiveMessageRequest.class));
         verify(sqsAsyncClient).deleteMessage(any(DeleteMessageRequest.class));
     }
@@ -214,7 +214,7 @@ class SqsServiceTest {
         CompletableFuture<Void> result = sqsService.processMessages(queueUrl);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(sqsAsyncClient).receiveMessage(any(ReceiveMessageRequest.class));
         verify(sqsAsyncClient, never()).deleteMessage(any(DeleteMessageRequest.class));
     }
@@ -230,7 +230,7 @@ class SqsServiceTest {
         CompletableFuture<Void> result = sqsService.purgeQueue(queueUrl);
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(sqsAsyncClient).purgeQueue(any(PurgeQueueRequest.class));
     }
 
@@ -246,7 +246,7 @@ class SqsServiceTest {
         CompletableFuture<Void> result = sqsService.listQueues();
 
         assertNotNull(result);
-        assertDoesNotThrow(() -> result.join());
+        assertDoesNotThrow(result::join);
         verify(sqsAsyncClient).listQueues();
     }
 }
