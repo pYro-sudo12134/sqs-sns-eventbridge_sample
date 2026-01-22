@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("software.amazon.awssdk:eventbridge:2.20.0")
+    implementation("software.amazon.awssdk:sqs:2.20.0")
+    implementation("software.amazon.awssdk:sns:2.20.0")
+    implementation("software.amazon.awssdk:netty-nio-client:2.20.0")
+    implementation("com.google.inject:guice:7.0.0")
+    implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation("ch.qos.logback:logback-classic:1.4.11")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+application {
+    mainClass = 'org.example.Main'
+}
+
+test {
+    useJUnitPlatform()
+}
