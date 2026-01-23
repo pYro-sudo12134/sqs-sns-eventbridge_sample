@@ -12,16 +12,19 @@ import java.net.URI;
 
 @Singleton
 public class LocalStackConfig {
-    private static final String LOCALSTACK_ENDPOINT = "http://localhost:4566";
-    private static final String REGION = "us-east-1";
-    private static final String ACCESS_KEY = "test";
-    private static final String SECRET_KEY = "test";
-
+    private final String LOCALSTACK_ENDPOINT;
+    private final String REGION;
+    private final String ACCESS_KEY;
+    private final String SECRET_KEY;
     private final EventBridgeAsyncClient eventBridgeAsyncClient;
     private final SnsAsyncClient snsAsyncClient;
     private final SqsAsyncClient sqsAsyncClient;
 
-    public LocalStackConfig() {
+    public LocalStackConfig(String localstackEndpoint, String region, String accessKey, String secretKey) {
+        this.LOCALSTACK_ENDPOINT = localstackEndpoint;
+        this.REGION = region;
+        this.ACCESS_KEY = accessKey;
+        this.SECRET_KEY = secretKey;
         this.eventBridgeAsyncClient = createEventBridgeAsyncClient();
         this.snsAsyncClient = createSnsAsyncClient();
         this.sqsAsyncClient = createSqsAsyncClient();

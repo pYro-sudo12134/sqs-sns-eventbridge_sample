@@ -19,7 +19,12 @@ class LocalStackConfigTest {
 
     @BeforeEach
     void setUp() {
-        config = new LocalStackConfig();
+        config = new LocalStackConfig(
+                "http://localhost:4566",
+                "us-east-1",
+                "test",
+                "test"
+        );
     }
 
     @Test
